@@ -7,7 +7,7 @@ const resgisterUser = asyncHandler(async (req, res) => {
 
     if (!firstName || !lastName || !email || !password) {
         res.status(400)
-        throw new Error('Please fill in all fields')
+        throw new Error('First name, last name, email and password are required')
     }
 
     const userExists = await User.exists({email})
@@ -42,7 +42,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
     if (!email || !password) {
         res.status(400)
-        throw new Error('Please fill in all fields')
+        throw new Error('email and password are required')
     }
 
     const user = await User.findOne({email})
@@ -72,7 +72,7 @@ const loginUser = asyncHandler(async (req, res) => {
 })
 
 const getUserProfile = asyncHandler(async (req, res) => {
-    const user = await User.findById(req.user._id)
+    const user = await User.findById(req.userId)
 
     if (!user) {
         res.status(404)
@@ -89,7 +89,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
 })
 
 const updateUserProfile = asyncHandler(async (req, res) => {
-    const user = await User.findById(req.user._id)
+    const user = await User.findById(req.userId)
     if (!user) {
         res.status(404)
         throw new Error('User not found')

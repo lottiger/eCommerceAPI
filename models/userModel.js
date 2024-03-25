@@ -30,7 +30,7 @@ userSchema.virtual('fullName').get(function() {
     // return this.firstName + ' ' + this.lastName
 })
 
-userSchema. methods.matchPassword = async function(enteredPassword) {
+userSchema.methods.matchPassword = async function(enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password)
 }
 
