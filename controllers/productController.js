@@ -1,18 +1,26 @@
 import Product from '../models/productModel.js'
 import mongoose from 'mongoose'
+import asyncHandler from 'express-async-handler'
 
-const getAllProducts = async (req, res) => {
-    try {
+const getAllProducts = asyncHandler(async (req, res) => {
+   
         const products = await Product.find({})
+       
+        if (!products) {
+            res.status(404)
+            throw new Error('Products not found')
+        }
 
         res.json(products)
-    } catch (error) {
-        res.json({message: error.message})
-    }
-}
+   
+})
 
-const getProductById = async (req, res) => {
-    try {
+const getProductById = asyncHandler(async (req, res) => {
+
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+        res.status(400)
+        throw new Error('Invalid product ID')
+    }
         const product = await Product.findById(req.params.id)
 
         if (!product) {
@@ -21,19 +29,17 @@ const getProductById = async (req, res) => {
         }
 
         res.json(product)
-    } catch (error) {
-        res.json({message: error.message})
-    }
+   
 
-}
+})
 
-const createProduct = async (req, res) => {
-    try {
+const createProduct = asyncHandler(async (req, res) => {
+   
        const {name, price, description, category, imageUrl} = req.body
 
        if (!name || !price || !description || !category || !imageUrl) {
            res.status(400)
-           throw new Error('Please fill in all fields')
+           throw new Error('name, price, description, category and imageUrl are required')
        }
 
          const newProduct = new Product({
@@ -52,14 +58,11 @@ const createProduct = async (req, res) => {
          }
 
          res.status(201).json(newProduct)
-    } catch (error) {
-        res.json({message: error.message})
-        
-    }
-}
+   
+})
 
-const updateProduct = async (req, res) => {
-    try {
+const updateProduct = asyncHandler(async (req, res) => {
+  
         const {name, price, description, category, imageUrl} = req.body
 
         const product = await Product.findById(req.params.id)
@@ -83,13 +86,11 @@ const updateProduct = async (req, res) => {
         }
 
         res.json(updatedProduct)
-    } catch (error) {
-        res.json({message: error.message})
-    }
-}
+   
+})
 
-const deleteProduct = async (req, res) => {
-    try {
+const deleteProduct = asyncHandler(async (req, res) => {
+    
        const id = req.params.id
        if(!mongoose.isValidObjectId(id)) {
            res.status(400)
@@ -102,10 +103,11 @@ const deleteProduct = async (req, res) => {
                 throw new Error('Product not found')
             }
             res.status(200).json({message: 'Product deleted', product})
-} catch (error){
-    // res.status(500).json({ error: error.toString() })
-    res.json({message: error.message})
-}
-}
+ 
+})
 
 export { getAllProducts, getProductById, createProduct, updateProduct, deleteProduct}
+
+
+
+

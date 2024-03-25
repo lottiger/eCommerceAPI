@@ -2,12 +2,17 @@ import User from '../models/userModel.js'
 import asyncHandler from 'express-async-handler'
 import generateToken from '../utils/generateToken.js'
 
-const resgisterUser = asyncHandler(async (req, res) => {
-    const {firstName, lastName, email, password} = req.body
+const registerUser = asyncHandler(async (req, res) => {
+    const {firstName, lastName, email, password, confirmPassword} = req.body
 
-    if (!firstName || !lastName || !email || !password) {
+    if (!firstName || !lastName || !email || !password || !confirmPassword) {
         res.status(400)
-        throw new Error('First name, last name, email and password are required')
+        throw new Error('First name, last name, email, password and confirm password are required')
+    }
+
+    if (password !== confirmPassword) {
+        res.status(400)
+        throw new Error('Passwords do not match')
     }
 
     const userExists = await User.exists({email})
@@ -122,4 +127,4 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     })
 })
 
-export {resgisterUser, loginUser, getUserProfile, updateUserProfile}
+export {registerUser, loginUser, getUserProfile, updateUserProfile}

@@ -1,6 +1,10 @@
-import {Schema, model} from 'mongoose'
+import {Schema, model, Types} from 'mongoose'
 
 const orderSchema = new Schema({
+    user: {
+        type: Types.ObjectId,
+        ref: 'User'
+    },
     products: [
         {
             productId: {
@@ -14,6 +18,9 @@ const orderSchema = new Schema({
             }
         }
     ]
+}, {
+    timestamps: true
+
 })
 
 const Order = model('Order', orderSchema)
