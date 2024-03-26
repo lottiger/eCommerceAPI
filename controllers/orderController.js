@@ -30,7 +30,7 @@ const createOrder = asyncHandler(async (req, res) => {
 
 
 const getAllOrders = asyncHandler(async (req, res) => {
-    const orders = await Order.find({}).populate('user', 'email')
+    const orders = await Order.find({ user: req.userId }).populate('products.productId') // populate('products.productId') - hämtar produkterna i ordern
     
     if (!orders) {
         res.status(404)
@@ -44,7 +44,7 @@ const getOrderById = asyncHandler(async (req, res) => {
         res.status(400)
         throw new Error('Invalid order ID')
     }
-    const order = await Order.findById(req.params.id).populate('user', 'email')
+    const order = await Order.findById(req.params.id).populate('user', 'email') //kanske ska vata fullNamne istället för email
     if (!order) {
         res.status(404)
         throw new Error('Order not found')
