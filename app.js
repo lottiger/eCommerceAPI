@@ -1,4 +1,5 @@
 import express from 'express'
+import cors from 'cors'
 import dbConnect from './server.js'
 import messageRoute from './routes/messageRoute.js'
 import productRoute from './routes/productRoute.js'
@@ -8,6 +9,8 @@ import { errorHandler, notFound } from './middlewere/errorMiddlewere.js'
 
 
 const app = express()
+
+app.use(cors())
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => console.log('Server running on port: ' + PORT))
