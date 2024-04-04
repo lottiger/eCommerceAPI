@@ -27,7 +27,6 @@ const userSchema = new Schema ({
 
 userSchema.virtual('fullName').get(function() {
     return `${this.firstName} ${this.lastName}`  
-    // return this.firstName + ' ' + this.lastName
 })
 
 userSchema.methods.matchPassword = async function(enteredPassword) {

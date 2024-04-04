@@ -1,8 +1,3 @@
-
-
-
-
-
 import Order from '../models/orderModel.js'
 import mongoose from 'mongoose'
 import asyncHandler from 'express-async-handler'
@@ -30,7 +25,7 @@ const createOrder = asyncHandler(async (req, res) => {
 
 
 const getAllOrders = asyncHandler(async (req, res) => {
-    const orders = await Order.find({ user: req.userId }).populate('products.productId') // populate('products.productId') - hämtar produkterna i ordern
+    const orders = await Order.find({ user: req.userId }).populate('products.productId')
     
     if (!orders) {
         res.status(404)
@@ -44,7 +39,7 @@ const getOrderById = asyncHandler(async (req, res) => {
         res.status(400)
         throw new Error('Invalid order ID')
     }
-    const order = await Order.findById(req.params.id).populate('user', 'firstName') //kanske ska vata fullNamne istället för email
+    const order = await Order.findById(req.params.id).populate('user', 'firstName')
     if (!order) {
         res.status(404)
         throw new Error('Order not found')

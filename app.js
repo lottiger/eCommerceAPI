@@ -20,10 +20,10 @@ dbConnect()
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
-app.use('/api/ecommerce', messageRoute)
-app.use('/api/ecommerce', productRoute)
-app.use('/api/ecommerce', userRoute)
-app.use('/api/ecommerce', orderRoute)
+app.use('/api/message', messageRoute)
+app.use('/api/products', productRoute)
+app.use('/api/auth', userRoute)
+app.use('/api/order', orderRoute)
 
 
 app.use(notFound, errorHandler)
