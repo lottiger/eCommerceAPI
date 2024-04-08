@@ -39,7 +39,7 @@ const getOrderById = asyncHandler(async (req, res) => {
         res.status(400)
         throw new Error('Invalid order ID')
     }
-    const order = await Order.findById(req.params.id).populate('user', 'firstName')
+    const order = await Order.findById(req.params.id).populate('products.productId')
     if (!order) {
         res.status(404)
         throw new Error('Order not found')
