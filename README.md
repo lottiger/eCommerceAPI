@@ -24,7 +24,7 @@ A project assigned from school. A RESTful API made for the front end eCommece pr
 
 
 
-### Products are borrowed from www.komplett.se This site is not intended for commercial use.
+(Products are borrowed from www.komplett.se This site is not intended for commercial use.)
    
 
 
