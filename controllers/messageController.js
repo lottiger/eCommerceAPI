@@ -30,4 +30,3 @@ const createMessage = async (req, res) => {
 }
 
 export {createMessage}
-
