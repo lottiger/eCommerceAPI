@@ -28,6 +28,8 @@ app.use('/api/order', orderRoute)
 
 app.use(notFound, errorHandler)
 
+module.exports = app
+
 
 
 
