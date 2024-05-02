@@ -12,8 +12,8 @@ const app = express()
 
 app.use(cors())
 
-const PORT = process.env.PORT || 3000
-app.listen(PORT, () => console.log('Server running on port: ' + PORT))
+// const PORT = process.env.PORT || 3000
+// app.listen(PORT, () => console.log('Server running on port: ' + PORT))
 
 dbConnect()
 
@@ -28,7 +28,6 @@ app.use('/api/order', orderRoute)
 
 app.use(notFound, errorHandler)
 
-module.exports = app
 
 
 
